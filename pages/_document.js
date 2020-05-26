@@ -12,7 +12,7 @@ class MyDocument extends Document {
         <Head>
           <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet" />
           <meta name="description" content="Mi Baby Shower" />
-          <meta property="og:image" content="https://wey.codes/cover.png" />
+          <meta property="og:image" content="https://bebe-pi.now.sh/bebe.png" />
         </Head>
         <body>
           <Main />
