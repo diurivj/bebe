@@ -86,8 +86,9 @@ export default function Home() {
           />
         </Stack>
         <Text textAlign="justify" fontSize={['xl', 'xl', '2xl', '3xl']} mb={10}>
-          Soy bebé, mis papis me han contado que hay un virus allá afuera que no nos permite reunirnos varias personas
-          para celebrar mi llegada 😕 así que por favor quédate en casa para conocernos muy pronto.
+          Soy bebé, estoy a punto de llegar (7 DE JULIO). Mis papis me han contado que hay un virus allá afuera que no
+          nos permite reunirnos varias personas para celebrar mi llegada 😕 así que por favor quédate en casa para
+          conocernos muy pronto.
         </Text>
         <Image src="/casa.png" alt="stay-home" mb={10} width={['200px', '200px', '300px', '300px']} />
         <Text transform="capitalize" textAlign="center" fontSize={['xl', 'xl', '2xl', '3xl']} mb={10}>
