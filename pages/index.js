@@ -1,7 +1,34 @@
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { Box, Image, Heading, Text, Stack, Button, ButtonGroup, Input, Icon } from '@chakra-ui/core'
 
 export default function Home() {
+  const [input, setInput] = useState('')
+  const [visible, setVisible] = useState('hidden')
+  const [done, setDone] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (input) {
+      setVisible('visible')
+    } else {
+      setVisible('hidden')
+    }
+  }, [input])
+
+  async function submitPoll(answer) {
+    setLoading(true)
+    const response = await fetch('/api/poll', {
+      method: 'POST',
+      body: JSON.stringify({ answer })
+    })
+    const data = await response.json()
+    if (data.ok === 1) {
+      setLoading(false)
+      setDone(true)
+    }
+  }
+
   return (
     <>
       <Head>
@@ -77,15 +104,41 @@ export default function Home() {
         <Text textAlign="justify" fontSize={['xl', 'xl', '2xl', '3xl']} mb={5}>
           Aún no sabemos cual será mi nombre, ¿nos ayudarías a decidir?
         </Text>
-        <ButtonGroup spacing={5} mb={10}>
-          <Button variantColor="blueElias" size="lg">
-            Diego
-          </Button>
-          <Button variantColor="blueElias" size="lg">
-            Elías
-          </Button>
-        </ButtonGroup>
-        <Input w={['100%', '100%', '100%', '50%']} placeholder="¿Tienes otra sugerencia?" mb={10} />
+
+        {!done ? (
+          <>
+            <ButtonGroup spacing={5} mb={10}>
+              <Button isLoading={loading} onClick={() => submitPoll('Diego')} variantColor="blueElias" size="lg">
+                Diego
+              </Button>
+              <Button isLoading={loading} onClick={() => submitPoll('Elias')} variantColor="blueElias" size="lg">
+                Elías
+              </Button>
+            </ButtonGroup>
+            <Input
+              onChange={e => setInput(e.target.value)}
+              w={['100%', '100%', '100%', '50%']}
+              placeholder="¿Tienes otra sugerencia?"
+              mb={10}
+            />
+            <Button
+              isLoading={loading}
+              onClick={() => submitPoll(input)}
+              variantColor="blueElias"
+              size="lg"
+              visibility={visible}
+            >
+              Enviar
+            </Button>
+          </>
+        ) : (
+          <>
+            <Heading as="h2" mb={20}>
+              ¡Gracias! ✅
+            </Heading>
+          </>
+        )}
+
         <Icon size={['100px', '100px', '200px', '200px']} name="mesaDeRegalos" mb={5} mt={5} />
         <Heading as="h2" mb={5}>
           MESA DE REGALOS
